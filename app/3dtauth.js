@@ -4,12 +4,21 @@
 
 /* Global variables */
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 /* Wrapper Height & Width */
 var sh = $("#wrapper").height();
 var sw = $("#wrapper").width();
 console.log("Wrapper height and width: " + sw + "," + sh);
-var num_points = 15;
-var training_time = 25; /* In seconds */
+var num_points = 10;
+var training_time = 15; /* In seconds */
 var target_positions = [];
 var target_force = [];
 var user_positions = [];
@@ -33,7 +42,34 @@ for(i=0; i<num_points; i++)
 
 console.log(target_positions.toString());
 
+function animate_circle(i){
+	setTimeout(	function() { 
+		var bgc = jQuery.Color( "rgb(" + parseInt(Pressure.map(target_force[i], 0, 1, 108, 235)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 176, 121)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 67, 53)) +")");
+		$("#el1").css('top', this.target_positions[i].y);
+		$("#el1").css('left', this.target_positions[i].x);
+		$("#el1").show();
+		console.log(i);
+		$("#el1").animate({
+			transform: 'scale('+ (1+target_force[i]) +')',
+			backgroundColor: bgc,
+			opacity: '1',
+		},Math.ceil(training_time/num_points)*1000*0.5);
+		$("#el1").animate({
+			transform: 'scale(1)',
+			duration: '2',
+			opacity: '0',
+			backgroundColor: '#6cb043'
+		},300);
+	 }, Math.ceil(training_time/num_points)*1000*i);
+	 
+}
 
+for(i=0; i<num_points; i++) 
+{
+	animate_circle(i);	
+}
+
+/*
 var animation_sequence = "<style> 	#el1 {left: " + target_positions[0].x +"px; top: " + target_positions[0].y +"px; opacity: 0;}\n@-webkit-keyframes default {";
 var percent = 1;
 var percent_between = Math.floor((100 - 6*num_points)/ num_points);
@@ -62,6 +98,7 @@ for(i=0; i<num_points; i++)
 animation_sequence += "} .animation {-webkit-animation: default " + training_time + "s ease 0s infinite normal none; }</style>";
 
 $("#animation_sequence").html(animation_sequence);
+*/
 
 Pressure.config({
   polyfill: true

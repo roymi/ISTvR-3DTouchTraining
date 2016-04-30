@@ -43,50 +43,11 @@
 		-webkit-transform: translateX(0%) translateY(0%);
 		position: absolute;
 	}
-	
-	.animation-target {
-	  animation: animation 4000ms linear infinite both;
-	}
-	
-	/* Generated with Bounce.js. Edit at http://goo.gl/gU2yvS */
-	
-	@keyframes animation { 
-	  0% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  49.9% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  50% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  51.25% { transform: matrix3d(1.348, 0, 0, 0, 0, 1.348, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  52.45% { transform: matrix3d(1.573, 0, 0, 0, 0, 1.573, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  54.9% { transform: matrix3d(1.828, 0, 0, 0, 0, 1.828, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  57.36% { transform: matrix3d(1.935, 0, 0, 0, 0, 1.935, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  59.81% { transform: matrix3d(1.978, 0, 0, 0, 0, 1.978, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  64.71% { transform: matrix3d(1.999, 0, 0, 0, 0, 1.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  69.57% { transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
-	  99% { transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 1; } 
-	  100% { transform: matrix3d(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); opacity: 0; } 
-	}
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-	  <div id="animation_sequence">
-		<style>
-		@-webkit-keyframes default {
-			100% { opacity 0; }
-			39% { opacity: 0; } 
-			38% { top: 200px; left: 150px; -webkit-transform: scale(1.5); background: #eb7934;  opacity: 1;  } 
-			31% { -webkit-transform: scale(1); opacity: 0;   } 
-			27% { top: 200px; left: 150px; -webkit-transform: scale(1); background: #6cb043; opacity: 0;   } 
-			26% { top: 50px; left: 50px; opacity: 0; } 
-			25% { top: 50px; left: 50px; -webkit-transform: scale(1.25); background: #fcc000;  opacity: 1;  } 
-			15% { -webkit-transform: scale(1); opacity: 0;   } 
-			14% { top: 50px; left: 50px; -webkit-transform: scale(1); background: #6cb043; opacity: 0;   } 
-			11% { top: 100px; left: 100px; -webkit-transform: scale(1.5); background: #eb7934; opacity: 0; } 
-			10% { -webkit-transform: scale(1.5); background: #eb7934; opacity: 1;     } 
-			1% { top: 100px; left: 100px; opacity: 0; } 
-		}
-	  	</style>
-	  </div>
-    <div class="statusbar-overlay"></div>
+<div class="statusbar-overlay"></div>
 
 <div class="views">
  
@@ -121,8 +82,10 @@
 </div>
 </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script   src="https://code.jquery.com/color/jquery.color-2.1.2.min.js" integrity="sha256-H28SdxWrZ387Ldn0qogCzFiUDDxfPiNIyJX7BECQkDE="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="../dist/js/pressure.js"></script>
     <script type="text/javascript" src="../dist/js/jquery.pressure.js"></script>
+    <script type="text/javascript" src="../dist/js/jquery.transform2d.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/js/framework7.min.js"></script>
     <script type="text/javascript" src="Point.js"></script>
     <script type="text/javascript" src="3dtauth.js"></script>
