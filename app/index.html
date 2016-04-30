@@ -1,13 +1,26 @@
 <html>
   <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	
+	<!-- Framework 7 for mobile app development -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.colors.css">
+	
     <style>
-      .element {
-        width: 200px;
+      .element{
         padding: 20px;
-        background: #0081af;
+        background: #6cb043;
         margin-bottom: 10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 100%;
         color: white;
         cursor: pointer;
+        -webkit-transform: translateX(0%) translateY(0%);
+
       }
       div[id*='jquery']{
         background: #72238e;
@@ -16,17 +29,83 @@
         margin-top: 0;
         margin-bottom: 10px;
       }
+	
+	/* #subject is an example object with base styling you want to animate */
+	/* ( <div id='subject' class='animation'></div> ) */
+	#el1 { 
+		padding: 20px;
+		background: #6cb043;
+		margin-bottom: 10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 100%;
+		cursor: pointer;
+		-webkit-transform: translateX(0%) translateY(0%);
+		position: absolute;
+	}
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <h1>Pressure Tests</h1>
-    <h3>Change Pressure (target ONLY 3D Touch | iPhone6s)</h3>
-    <div class="element" id="el3-jquery">0</div>
+	  <div id="animation_sequence">
+		<style>
+		@-webkit-keyframes default {
+			100% { opacity 0; }
+			39% { opacity: 0; } 
+			38% { top: 200px; left: 150px; -webkit-transform: scale(1.5); background: #eb7934;  opacity: 1;  } 
+			31% { -webkit-transform: scale(1); opacity: 0;   } 
+			27% { top: 200px; left: 150px; -webkit-transform: scale(1); background: #6cb043; opacity: 0;   } 
+			26% { top: 50px; left: 50px; opacity: 0; } 
+			25% { top: 50px; left: 50px; -webkit-transform: scale(1.25); background: #fcc000;  opacity: 1;  } 
+			15% { -webkit-transform: scale(1); opacity: 0;   } 
+			14% { top: 50px; left: 50px; -webkit-transform: scale(1); background: #6cb043; opacity: 0;   } 
+			11% { top: 100px; left: 100px; -webkit-transform: scale(1.5); background: #eb7934; opacity: 0; } 
+			10% { -webkit-transform: scale(1.5); background: #eb7934; opacity: 1;     } 
+			1% { top: 100px; left: 100px; opacity: 0; } 
+		}
+	  	</style>
+	  </div>
+    <div class="statusbar-overlay"></div>
 
+<div class="views">
+ 
+<div class="view view-main">
+ 
+<div class="navbar">
+<div class="navbar-inner">
+ <div class="right">
+ <a href="about.html" class="item-link">
+<div class="item-content">
+<div class="item-inner">
+<div class="item-title">About</div>
+</div>
+</div></a>
+</div>
+<div class="center sliding">3D touch authentication</div>
+
+</div>
+</div>
+ 
+<div class="pages navbar-through toolbar-through">
+ 
+<div data-page="index" class="page">
+ 
+<div id="wrapper" class="page-content">
+    	<div class="element animation" id="el1"></div>
+    </div>
+</div>
+
+</div>
+ 
+</div>
+</div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="../dist/pressure.js"></script>
     <script type="text/javascript" src="../dist/jquery.pressure.js"></script>
-    <script type="text/javascript" src="example.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/js/framework7.min.js"></script>
+    <script type="text/javascript" src="Point.js"></script>
+    <script type="text/javascript" src="3dtauth.js"></script>
+
   </body>
+  
 </html>
