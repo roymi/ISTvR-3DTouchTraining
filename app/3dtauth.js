@@ -126,40 +126,6 @@ function runTraining(_num_points, _training_time)
 	setTimeout( function() { score(); }, Math.ceil(_training_time/_num_points)*1000*_num_points)+3000;
 }
 
-//runTraining(10, 15);
-
-
-/*
-var animation_sequence = "<style> 	#el1 {left: " + target_positions[0].x +"px; top: " + target_positions[0].y +"px; opacity: 0;}\n@-webkit-keyframes default {";
-var percent = 1;
-var percent_between = Math.floor((100 - 6*num_points)/ num_points);
-
-animation_sequence += "1% { left: " + target_positions[0].x +"px; top: " + target_positions[0].y +"px; -webkit-transform: scale(1);background: #6cb043; opacity: 0; }\n";	
-
-for(i=0; i<num_points; i++)	
-{			
-	percent += 5;
-	animation_sequence += percent + "% { -webkit-transform: scale("+ (1+target_force[i]) +");background: rgb(" + parseInt(Pressure.map(target_force[i], 0, 1, 108, 235)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 176, 121)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 67, 53)) +"); opacity: 1; }\n"; 
-	percent += 1;
-	animation_sequence += percent + "% { left: " + target_positions[i].x +"px; top: " + target_positions[i].y +"px; -webkit-transform: scale("+ (1+target_force[i]) +");background: rgb(" + parseInt(Pressure.map(target_force[i], 0, 1, 108, 235)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 176, 121)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 67, 53)) +"); opacity: 0; }\n";
-	percent += percent_between;
-	if( i != num_points-1 )
-	{
-		animation_sequence += percent + "% { left: " + target_positions[i+1].x +"px; top: " + target_positions[i+1].y +"px; -webkit-transform: scale(1);background: #6cb043; opacity: 0; }\n";
-	}
-	else 
-	{
-		animation_sequence += percent + "% { left: " + target_positions[0].x +"px; top: " + target_positions[0].y +"px; -webkit-transform: scale(1);background: #6cb043; opacity: 0; }\n";	
-	}
-}
-		animation_sequence += "100% { left: " + target_positions[0].x +"px; top: " + target_positions[0].y +"px; -webkit-transform: scale(1);background: #6cb043; opacity: 0; }\n";	
-
-
-animation_sequence += "} .animation {-webkit-animation: default " + training_time + "s ease 0s infinite normal none; }</style>";
-
-$("#animation_sequence").html(animation_sequence);
-*/
-
 Pressure.config({
   polyfill: true
 });
@@ -180,9 +146,7 @@ var circle = {
   start: function(event){
     console.log('start', event);
     $("#wrapper").append('<div class="element" id="cir" style="position: absolute; left:'+ (event.pageX - 38) +'px;top:'+ (event.pageY - 30) +'px;"></div>');
-    //console.log('created circle on: '+event.pageX+ ' , ' + event.pageY);
     setCurrUserPos(new Point(event.pageX-38,event.pageY-30));
-    //user_positions.push(new Point(event.pageX-38,event.pageY-30));
   },
 
   change: function(force, event){
@@ -192,11 +156,9 @@ var circle = {
   },
 
   startDeepPress: function(event){
-    //console.log('start deep press', event);
   },
 
   endDeepPress: function(){
-   // console.log('end deep press');
   },
 
   end: function(){
@@ -214,23 +176,24 @@ var circle = {
 Pressure.set(document.querySelectorAll('#wrapper'), circle, {polyfill: true});
 
 
-
-// A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
 	mobileApp.popup('.popup-training');
-	$$('.popup-training').on('closed', function () {
-	console.log('Traing Popup is closed, starting training...');
-	_num_points = !$("#training-points").val() ? num_points : $("#training-points").val();
-	_training_time = !$("#training-duration").val() ? training_time : $("#training-duration").val();
-	dist_th = !$("#training-dist-th").val() ? dist_th : $("#training-dist-th").val();
-	force_th = !$("#training-force-th").val() ? force_th : $("#training-force-th").val();
-
-	runTraining(_num_points, _training_time);
+	$$('.popup-training').on('closed', function () 
+	{
+		console.log('Traing Popup is closed, starting training...');
+		
+		_num_points = !$("#training-points").val() ? num_points : $("#training-points").val();
+		_training_time = !$("#training-duration").val() ? training_time : $("#training-duration").val();
+		dist_th = !$("#training-dist-th").val() ? dist_th : $("#training-dist-th").val();
+		force_th = !$("#training-force-th").val() ? force_th : $("#training-force-th").val();
+	
+		runTraining(_num_points, _training_time);
+		
 	}); 
 	
 	$("#training-new").click(function() {
 		location.reload();
-		});
+	});
 	  
 });
