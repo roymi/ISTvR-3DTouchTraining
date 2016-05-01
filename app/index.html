@@ -42,6 +42,7 @@
 		cursor: pointer;
 		-webkit-transform: translateX(0%) translateY(0%);
 		position: absolute;
+		opacity: 0;
 	}
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,16 +55,19 @@
 <div class="view view-main">
  
 <div class="navbar">
-<div class="navbar-inner">
- <div class="right">
- <a href="about.html" class="item-link">
-<div class="item-content">
-<div class="item-inner">
-<div class="item-title">About</div>
+	<div class="navbar-inner">
+		<div class="left"><a href="#" id="training-new">New</a></div>
+		<div class="center sliding">3D Touch Authentication</div>
+		<div class="right">
+			<a href="about.html" class="item-link">
+			<div class="item-content">
+			<div class="item-inner">
+			<div class="item-title">About</div>
+		</div>
+	</div></a>
 </div>
-</div></a>
-</div>
-<div class="center sliding">3D touch authentication</div>
+
+
 
 </div>
 </div>
@@ -81,6 +85,91 @@
  
 </div>
 </div>
+<!-- Training Popup -->
+<div class="popup popup-training">
+	<div class="views">
+    <div class="view view-main">
+      <div class="pages">
+        <div data-page="index" class="page">
+          <div class="page-content">
+            
+            <!-- Top Navbar-->
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="center">3D Touch authentication</div>
+              </div>
+            </div>
+            <div class="content-block">
+	            <p>
+		            This training application is a proof of concept for 3D touch authentication to be used as 
+		            The score is calculated as a percent of how many points you hit 
+		            at a certain threshold distance and also considers delta of the force level from the target<br>
+		            To start the training please choose training duration and number of training points   
+	            </p>
+            </div>
+	    <form id="training-form" class="list-block">
+		  <ul>
+		    <li>
+		      <div class="item-content">
+		        <div class="item-inner">
+		          <div class="item-title label">Duration</div>
+		          <div class="item-input">
+		            <input type="text" id="training-duration" name="duration" placeholder="Duration in seconds">
+		          </div>
+		        </div>
+		      </div>
+		    </li>
+		    <li>
+		      <div class="item-content">
+		        <div class="item-inner">
+		          <div class="item-title label">Force points</div>
+		          <div class="item-input">
+		            <input type="text" id="training-points" name="points" placeholder="Number of force points">
+		          </div>
+		        </div>
+		      </div>
+		    </li>
+		    <li>
+		      <div class="item-content">
+		        <div class="item-inner">
+		          <div class="item-title label">Distance Th</div>
+		          <div class="item-input">
+		            <input type="text" id="training-dist-th" name="dist-th" placeholder="Distance threshold in px">
+		          </div>
+		        </div>
+		      </div>
+		    </li>
+		    <li>
+		      <div class="item-content">
+		        <div class="item-inner">
+		          <div class="item-title label">Force Th</div>
+		          <div class="item-input">
+		            <input type="text" id="training-force-th" name="dist-th" placeholder="Force threshold [0.0-1.0]">
+		          </div>
+		        </div>
+		      </div>
+		    </li>
+		  </ul>
+		</form>
+		 
+		<div class="content-block">
+		  	<a href="#" class="button form-to-json close-popup">Start training</a>
+		</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+	<!--
+<div class="content-block">
+	<div class="center sliding">3D touch authentication</div>
+	  <p>About</p>
+		
+	</div>
+-->
+</div>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script   src="https://code.jquery.com/color/jquery.color-2.1.2.min.js" integrity="sha256-H28SdxWrZ387Ldn0qogCzFiUDDxfPiNIyJX7BECQkDE="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="../dist/js/pressure.js"></script>
@@ -89,6 +178,5 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/js/framework7.min.js"></script>
     <script type="text/javascript" src="Point.js"></script>
     <script type="text/javascript" src="3dtauth.js"></script>
-
   </body>
 </html>
