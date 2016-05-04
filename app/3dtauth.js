@@ -76,7 +76,7 @@ function animate_circle(i)
 			transform: 'scale('+ (1+target_force[i]) +')',
 			backgroundColor: bgc,
 			opacity: '1',
-		},Math.floor(training_time/num_points)*1000*0.5);
+		},Math.ceil(training_time/num_points)*1000*0.5);
 		console.log('CurrUserPos:', current_user_position);
 		if (current_user_position != 0 && current_user_position != user_positions[i-1]) 
 		{
@@ -98,7 +98,7 @@ function animate_circle(i)
 			opacity: '0',
 			backgroundColor: '#6cb043'
 		},300);
-	 }, Math.floor((training_time/num_points)*1000)*i);
+	 }, Math.ceil(training_time/num_points)*1000*i);
 }
 
 /* Score will be computed as percentage of points with distance closer than 50x50 pixels radius and close force (by 0.3) threshold */
@@ -245,7 +245,7 @@ $( document ).ready(function() {
 	}); 
 	
 	$("#training-new").click(function() {
-		mobileApp.popup('.popup-training');
+		location.reload();
 	});
 	  
 });
