@@ -1,7 +1,6 @@
 <html>
   <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
 	
@@ -10,40 +9,33 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.ios.colors.css">
 	
     <style>
-      .element{
-        padding: 20px;
-        background: #6cb043;
-        margin-bottom: 10px;
-		width: 30px;
-		height: 30px;
-		border-radius: 100%;
-        color: white;
-        cursor: pointer;
-        -webkit-transform: translateX(0%) translateY(0%);
-
-      }
-      div[id*='jquery']{
-        background: #72238e;
-      }
-      h3{
-        margin-top: 0;
-        margin-bottom: 10px;
-      }
-	
-	/* #subject is an example object with base styling you want to animate */
-	/* ( <div id='subject' class='animation'></div> ) */
-	#el1 { 
-		padding: 20px;
-		background: #6cb043;
-		margin-bottom: 10px;
-		width: 30px;
-		height: 30px;
-		border-radius: 100%;
-		cursor: pointer;
-		-webkit-transform: translateX(0%) translateY(0%);
-		position: absolute;
-		opacity: 0;
-	}
+		.circle {
+			padding: 20px;
+			background: #6cb043;
+			margin-bottom: 10px;
+			width: 30px;
+			height: 30px;
+			border-radius: 100%;
+			color: white;
+			cursor: pointer;
+			-webkit-transform: translateX(0%) translateY(0%);
+		}
+		h3 {
+			margin-top: 0;
+			margin-bottom: 10px;
+		}
+		#elem { 
+			padding: 20px;
+			background: #6cb043;
+			margin-bottom: 10px;
+			width: 30px;
+			height: 30px;
+			border-radius: 100%;
+			cursor: pointer;
+			-webkit-transform: translateX(0%) translateY(0%);
+			position: absolute;
+			opacity: 0;
+		}
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -77,7 +69,7 @@
 <div data-page="index" class="page">
  
 <div id="wrapper" class="page-content">
-    	<div class="element animation-target" id="el1"></div>
+    	<div class="circle animation-target" id="elem"></div>
     </div>
 </div>
 
@@ -96,15 +88,18 @@
             <!-- Top Navbar-->
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">3D Touch authentication</div>
+                <div class="center">3D Touch Authentication</div>
               </div>
             </div>
             <div class="content-block">
 	            <p>
-		            This training application is a proof of concept for 3D touch authentication to be used as 
-		            The score is calculated as a percent of how many points you hit 
-		            at a certain threshold distance and also considers delta of the force level from the target<br>
-		            To start the training please choose training duration and number of training points   
+		            <b>Welcome to 3D Touch Authentication training.</b><br>
+		            This application is a proof of concept for 3D touch authentication to be used as an implicit password sequence to preserve security against Rubber Hose Cryptanalysis.
+		            This should be used as a tool for a further study of the use of new mobile technologies as an implicit learning techniques.
+		            <br>The test score is calculated as a percent of how many points you hit 
+		            at a certain threshold distance and also considers delta of the force level from the target<br><br>
+		            To start the training please choose training duration number of force points, distance and force threshold.<br>
+		            A default value would be assigned for empty input value.
 	            </p>
             </div>
 	    <form id="training-form" class="list-block">
@@ -151,9 +146,8 @@
 		    </li>
 		  </ul>
 		</form>
-		 
 		<div class="content-block">
-		  	<a href="#" class="button form-to-json close-popup">Start training</a>
+		  	<a href="#" class="button button-big button-fill color-green form-to-json close-popup">Start training</a>
 		</div>
           </div>
         </div>
@@ -161,13 +155,8 @@
     </div>
   </div>
   
-	<!--
-<div class="content-block">
-	<div class="center sliding">3D touch authentication</div>
-	  <p>About</p>
-		
-	</div>
--->
+  
+
 </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>

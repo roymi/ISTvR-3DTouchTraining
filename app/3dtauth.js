@@ -23,10 +23,19 @@ var user_force = [];
 var current_user_position = 0;
 var current_user_force = 0;
 var dist_th = 300;
-var force_th = 0.3;
+var force_th = 0.5;
+
+function resetTraining() {
+	user_positions = [];
+	user_force = [];
+	zero_p = new Point(0,0);
+	current_user_position = zero_p;
+	current_user_force = 0;
+}
 
 function configTraining(_num_points, _training_time) 
 {
+	resetTraining();
 	if(typeof(_num_points) != "undefined" && _num_points !== null) {
 	    num_points = _num_points;
 	}
@@ -42,10 +51,10 @@ function configTraining(_num_points, _training_time)
 		tmp_y = Math.floor(Math.random() * sh);
 		tmp_force = Math.random();
 		
-		if (tmp_y < 50) tmp_y += 50; /* Considering the title */
-		if (tmp_y > sh-50) tmp_y -= 50; /* Considering the title */
-		if (tmp_x < 50) tmp_x += 50; /* Considering the max circle size */
-		if (tmp_x > sw-50) tmp_x -= 50; /* Considering the max circle size */
+		if (tmp_y < 70) tmp_y += 70; /* Considering the title */
+		if (tmp_y > sh-70) tmp_y -= 70; /* Considering the title */
+		if (tmp_x < 70) tmp_x += 70; /* Considering the max circle size */
+		if (tmp_x > sw-70) tmp_x -= 70; /* Considering the max circle size */
 		
 		target_positions.push(new Point(tmp_x,tmp_y));
 		target_force.push(tmp_force);
@@ -59,17 +68,17 @@ function animate_circle(i)
 	setTimeout(	function() { 
 		console.log("Simulating target:("+ target_positions[i].x + "," + target_positions[i].y + ")");
 		var bgc = jQuery.Color( "rgb(" + parseInt(Pressure.map(target_force[i], 0, 1, 108, 235)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 176, 121)) + "," + parseInt(Pressure.map(target_force[i], 0, 1, 67, 53)) +")");
-		$("#el1").css('top', this.target_positions[i].y);
-		$("#el1").css('left', this.target_positions[i].x);
-		$("#el1").show();
+		$("#elem").css('top', this.target_positions[i].y);
+		$("#elem").css('left', this.target_positions[i].x);
+		$("#elem").show();
 		console.log(i);
-		$("#el1").animate({
+		$("#elem").animate({
 			transform: 'scale('+ (1+target_force[i]) +')',
 			backgroundColor: bgc,
 			opacity: '1',
-		},Math.ceil(training_time/num_points)*1000*0.5);
+		},Math.floor(training_time/num_points)*1000*0.5);
 		console.log('CurrUserPos:', current_user_position);
-		if (current_user_position != 0) 
+		if (current_user_position != 0 && current_user_position != user_positions[i-1]) 
 		{
 			user_positions.push(current_user_position);
 			user_force.push(current_user_force);
@@ -78,16 +87,18 @@ function animate_circle(i)
 		{
 			user_positions.push(new Point(0,0));
 			user_force.push(0);
+			current_user_position = zero_p;
+			current_user_force = 0;
 		}
 		console.log("User positions: " + user_positions.toString());
 		console.log("User force: " + user_force.toString());
-		$("#el1").animate({
+		$("#elem").animate({
 			transform: 'scale(1)',
-			duration: '2',
+			duration: '1',
 			opacity: '0',
 			backgroundColor: '#6cb043'
 		},300);
-	 }, Math.ceil(training_time/num_points)*1000*i);
+	 }, Math.floor((training_time/num_points)*1000)*i);
 }
 
 /* Score will be computed as percentage of points with distance closer than 50x50 pixels radius and close force (by 0.3) threshold */
@@ -97,8 +108,16 @@ function score()
 	var score = 0; 
 	var percent = 1/num_points;
 	/* The first point dosen't count */
-	user_positions.push(current_user_position);
-	user_force.push(current_user_force);
+	if (current_user_position != 0 && current_user_position != user_positions[user_positions.length-1]) 
+	{
+		user_positions.push(current_user_position);
+		user_force.push(current_user_force);
+	}
+	else 
+	{
+		user_positions.push(new Point(0,0));
+		user_force.push(0);
+	}
 	user_positions.shift();
 	user_force.shift();
 	console.log("User positions: " + user_positions.toString());
@@ -108,22 +127,55 @@ function score()
 	for(i=0; i<num_points; i++) 
 	{
 		console.log(Point.distance(user_positions[i],target_positions[i]));
-		if( user_positions[i].distance(target_positions[i]) < dist_th && Math.abs(user_force[i] - target_force[i]) < force_th ) 
+		if( user_positions[i] != zero_p && user_positions[i].distance(target_positions[i]) < dist_th && Math.abs(user_force[i] - target_force[i]) < force_th ) 
 		{
 			score += percent;
 		}
 	}
-	mobileApp.alert( Math.floor(score*100) + '%', 'Your training score is:');
+	
+	//mobileApp.alert( Math.floor(score*100) + '%', 'Your training score is:');
+       mobileApp.modal({
+    title:  'Training has ended',
+    text: 'Your training score is: <b class="color-green">' + Math.floor(score*100) + '% </b><br> You may retake the last sequence or start a new training with a new random sequence',
+    verticalButtons: true,
+    buttons: [
+      {
+        text: 'Repeat training',
+        onClick: function() {
+          resetTraining();
+          runTraining(_num_points, _training_time);
+        }
+      },
+      {
+        text: 'New training',
+        onClick: function() {
+        	target_positions = [];
+			target_force = [];
+          	mobileApp.popup('.popup-training');
+        }
+      },
+      {
+        text: 'Cancel',
+        onClick: function() {}
+      },
+    ]
+  }) 
+        
 }
 
 function runTraining(_num_points, _training_time)
 {
-	configTraining(_num_points, _training_time);
-	for(i=0; i<num_points; i++) 
-	{
-		animate_circle(i);
-	}
-	setTimeout( function() { score(); }, Math.ceil(_training_time/_num_points)*1000*_num_points)+3000;
+	mobileApp.showPreloader('Get ready...')
+    setTimeout(function () {
+        mobileApp.hidePreloader();
+    }, 2000);
+	setTimeout( function() {
+		for(i=0; i<num_points; i++) 
+		{
+			animate_circle(i);
+		}
+		setTimeout( function() { score(); }, Math.ceil(_training_time/_num_points)*1000*_num_points)+3000;
+	}, 3000);
 }
 
 Pressure.config({
@@ -145,7 +197,7 @@ function setCurrUserForce(force) {
 var circle = {
   start: function(event){
     console.log('start', event);
-    $("#wrapper").append('<div class="element" id="cir" style="position: absolute; left:'+ (event.pageX - 38) +'px;top:'+ (event.pageY - 30) +'px;"></div>');
+    $("#wrapper").append('<div class="circle" id="cir" style="position: absolute; left:'+ (event.pageX - 38) +'px;top:'+ (event.pageY - 30) +'px;"></div>');
     setCurrUserPos(new Point(event.pageX-38,event.pageY-30));
   },
 
@@ -187,13 +239,13 @@ $( document ).ready(function() {
 		_training_time = !$("#training-duration").val() ? training_time : $("#training-duration").val();
 		dist_th = !$("#training-dist-th").val() ? dist_th : $("#training-dist-th").val();
 		force_th = !$("#training-force-th").val() ? force_th : $("#training-force-th").val();
-	
+		configTraining(_num_points, _training_time);
 		runTraining(_num_points, _training_time);
 		
 	}); 
 	
 	$("#training-new").click(function() {
-		location.reload();
+		mobileApp.popup('.popup-training');
 	});
 	  
 });
